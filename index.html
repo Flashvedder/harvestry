@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haverty's Furniture | Luxury Showroom & AR Preview</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Model Viewer for 3D & WebAR -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: #f8fafc;
+            --poster-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4 text-center font-medium tracking-wide">
+        <span>✨ Experience furniture in your living room with our new WebAR & 3D Visualizer</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="bg-slate-900 text-white p-2.5 rounded-lg font-bold text-xl tracking-wider flex items-center shadow-md">
+                    <span class="text-amber-400 mr-1 font-serif">H</span>F
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 block leading-tight">HAVERTYS</span>
+                    <span class="text-[10px] tracking-[0.25em] text-slate-500 uppercase font-semibold">Furniture • Est 1885</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#" class="text-slate-900 font-semibold hover:text-slate-900 transition">Showroom</a>
+                <a href="#collection" class="hover:text-slate-900 transition">Living Room</a>
+                <a href="#collection" class="hover:text-slate-900 transition">Dining & Bar</a>
+                <a href="#ar-section" class="hover:text-slate-900 transition flex items-center"><i class="fa-solid fa-cube text-amber-600 mr-1.5"></i> AR Studio</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-4">
+                <button onclick="openARModal('sofa')" class="hidden sm:inline-flex items-center justify-center bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition transform active:scale-95">
+                    <i class="fa-solid fa-vr-cardboard mr-2"></i> Launch AR Scanner
+                </button>
+                <div class="relative">
+                    <button class="p-2 text-slate-700 hover:text-slate-900 relative">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span class="absolute top-0 right-0 bg-amber-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-slate-900 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000');"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 relative z-10 flex flex-col items-start">
+            <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wider uppercase">Interactive 3D & AR Preview</span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight max-w-2xl leading-tight mb-6">
+                Crafted for comfort. <br><span class="text-amber-400">Visualized in your home.</span>
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg max-w-xl mb-8 font-light">
+                Explore our premium handcrafted furniture line in high-fidelity 3D. Place pieces directly in your room using augmented reality before making them yours.
+            </p>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                <a href="#collection" class="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-amber-600/20 text-center transition">
+                    Explore Collection
+                </a>
+                <button onclick="openARModal('sofa')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 text-sm font-semibold px-8 py-3.5 rounded-xl text-center transition flex items-center justify-center">
+                    <i class="fa-solid fa-cube mr-2 text-amber-400"></i> Try 3D Sofa Viewer
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase Collection -->
+    <main id="collection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <h2 class="text-xs font-bold tracking-widest text-amber-600 uppercase mb-2">Curated Catalog</h2>
+                <p class="text-3xl font-bold tracking-tight text-slate-900">Featured Luxury Showpieces</p>
+            </div>
+            <p class="text-sm text-slate-500 mt-2 md:mt-0 max-w-sm">
+                Interact with live 3D models right in your browser or test them in your actual room scale with AR.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Product Card 1: Luxury Recliner Sofa (Live 3D & AR) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group hover:shadow-xl transition duration-300">
+                <!-- Interactive 3D Embedded Viewport -->
+                <div class="relative h-80 bg-slate-100">
+                    <model-viewer 
+                        src="https://flashvedder.github.io/Sofa/" 
+                        ios-src=""
+                        alt="Haverty's Luxury Recliner Sofa 3D Model"
+                        ar
+                        ar-modes="webxr scene-viewer quick-look"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        exposure="1"
+                        class="w-full h-full">
+                        <button slot="ar-button" class="absolute bottom-4 right-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg flex items-center transition">
+                            <i class="fa-solid fa-vr-cardboard text-amber-400 mr-2 text-sm"></i> View in Your Room (AR)
+                        </button>
+                    </model-viewer>
+                    <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Live 3D Model
+                    </span>
+                </div>
+
+                <!-- Product Details -->
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-slate-900">Arlington Power Reclining Sofa</h3>
+                            <span class="text-xl font-extrabold text-amber-700">$1,899</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">
+                            Dual power reclining mechanisms wrapped in premium stain-resistant textured fabric. Ergonomic lumbar support and sleek modern framing.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div class="flex items-center space-x-1 text-xs text-amber-500">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-slate-500 ml-1 font-medium">(48 reviews)</span>
+                        </div>
+                        <button onclick="openARModal('sofa')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-cube mr-1.5"></i> AR Try-On & Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2: Bar Stool (Static Preview with AR Trigger) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group hover:shadow-xl transition duration-300">
+                <!-- Image container with fallback preview -->
+                <div class="relative h-80 bg-slate-100 overflow-hidden flex items-center justify-center">
+                    <img src="image_3.png" alt="Bar Stool" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                        In-Store Best Seller
+                    </span>
+                    <button onclick="openARModal('stool')" class="absolute bottom-4 right-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg flex items-center transition">
+                        <i class="fa-solid fa-vr-cardboard text-amber-400 mr-2 text-sm"></i> View in AR
+                    </button>
+                </div>
+
+                <!-- Product Details -->
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-slate-900">Kensington Upholstered Bar Stool</h3>
+                            <span class="text-xl font-extrabold text-amber-700">$349</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">
+                            Solid oak tapered legs with textured herringbone weave upholstery and brass footrest rail. Perfect for contemporary kitchen islands and home bars.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div class="flex items-center space-x-1 text-xs text-amber-500">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-slate-500 ml-1 font-medium">(29 reviews)</span>
+                        </div>
+                        <button onclick="openARModal('stool')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-cube mr-1.5"></i> AR Try-On & Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Interactive AR Room Preview Banner Section -->
+    <section id="ar-section" class="bg-slate-900 text-white py-16 mt-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
+            <div class="lg:w-1/2 mb-8 lg:mb-0">
+                <span class="bg-amber-500/20 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Augmented Reality Experience</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-4 mb-4">See how it fits before you buy</h2>
+                <p class="text-slate-300 text-sm sm:text-base mb-6 leading-relaxed">
+                    No guessing measurements or colors. Open our WebAR experience on your smartphone or tablet to scale, rotate, and place our furniture directly into your living room in real-time.
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-sm font-medium text-slate-200">
+                    <div class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> True-to-life 1:1 scale</div>
+                    <div class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Instant mobile web access</div>
+                    <div class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> No app download required</div>
+                    <div class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> High-poly texture fidelity</div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center w-full">
+                <div class="bg-slate-800/80 border border-slate-700 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl backdrop-blur-md">
+                    <div class="w-16 h-16 bg-amber-600/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Scan to Preview on Mobile</h3>
+                    <p class="text-xs text-slate-400 mb-6">Point your phone camera at the screen or click below to launch the AR viewer session instantly.</p>
+                    <button onclick="openARModal('sofa')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3.5 rounded-xl transition shadow-md flex items-center justify-center">
+                        <i class="fa-solid fa-mobile-screen-button mr-2"></i> Launch AR Camera View
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <div class="bg-white text-slate-950 p-2 rounded-lg font-bold text-lg flex items-center">
+                    <span class="text-amber-600 mr-1 font-serif">H</span>F
+                </div>
+                <span class="text-white font-semibold tracking-wide">HAVERTYS FURNITURE &copy; 2026</span>
+            </div>
+            <p class="text-xs text-slate-500">Powered by WebAR & 3D Interactive Visualization Pipeline</p>
+        </div>
+    </footer>
+
+    <!-- Interactive AR Modal Popup -->
+    <div id="arModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 transform transition-all">
+            <div class="bg-slate-900 text-white p-6 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400 block mb-1">AR Studio View</span>
+                    <h3 id="modalTitle" class="text-xl font-bold">Arlington Power Reclining Sofa</h3>
+                </div>
+                <button onclick="closeARModal()" class="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- Modal 3D Viewer Container -->
+                <div class="h-80 bg-slate-100 rounded-2xl overflow-hidden mb-6 relative">
+                    <model-viewer 
+                        id="modalModelViewer"
+                        src="https://flashvedder.github.io/Sofa/" 
+                        ar
+                        ar-modes="webxr scene-viewer quick-look"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        class="w-full h-full">
+                    </model-viewer>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
+                    <p class="text-xs text-amber-900 leading-relaxed">
+                        <strong>How to use AR on mobile:</strong> Tap the "View in Your Room" button on your mobile device to open AR camera mode. Point your camera at your floor and tap to position the furniture piece at true 1:1 scale.
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeARModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-6 py-3 rounded-xl transition">
+                        Close
+                    </button>
+                    <button onclick="alert('Item added to your design wishlist!')" class="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-md transition">
+                        Add to Wishlist ($1,899)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Controls -->
+    <script>
+        function openARModal(productType) {
+            const modal = document.getElementById('arModal');
+            const title = document.getElementById('modalTitle');
+            const viewer = document.getElementById('modalModelViewer');
+
+            if (productType === 'stool') {
+                title.innerText = "Kensington Upholstered Bar Stool";
+            } else {
+                title.innerText = "Arlington Power Reclining Sofa";
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeARModal() {
+            const modal = document.getElementById('arModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
