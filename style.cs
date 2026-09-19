@@ -1,12 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+// Product dataset configuration with your exact GitHub Pages URLs
+const productsData = {
+    'sofa': {
+        title: "Arlington Power Reclining Sofa",
+        model: "https://flashvedder.github.io/Sofa/model.glb"
+    },
+    'sofa02': {
+        title: "Nordic Sectional 02",
+        model: "https://flashvedder.github.io/sofa02/model.glb"
+    },
+    'stool': {
+        title: "Kensington Upholstered Bar Stool",
+        model: "https://flashvedder.github.io/Stool/model.glb"
+    }
+};
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+// Function to open the AR modal and load the selected furniture model
+function openARModal(productKey) {
+    const modal = document.getElementById('arModal');
+    const title = document.getElementById('modalTitle');
+    const viewer = document.getElementById('modalModelViewer');
+
+    const product = productsData[productKey] || productsData['sofa'];
+
+    title.innerText = product.title;
+    viewer.setAttribute('src', product.model);
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
-model-viewer {
-    width: 100%;
-    height: 100%;
-    background-color: #f8fafc;
-    --poster-color: transparent;
+// Function to close the AR modal
+function closeARModal() {
+    const modal = document.getElementById('arModal');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
 }
